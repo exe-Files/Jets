@@ -28,9 +28,8 @@ public class AirField {
 		List<Jet[]> jetsListCopy;
 		jetsListCopy = new ArrayList<Jet[]>();
 		for (int i = 0; i < jets.size() ; i++) {
-			jetsListCopy.add(jets.get(i));
+			jetsListCopy.add(jets.get(i)); //makes a copy of each index
 		}
-
 		return jetsListCopy;
 	}
 

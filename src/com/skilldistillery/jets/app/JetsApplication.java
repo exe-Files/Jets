@@ -6,13 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
 
 import com.skilldistillery.jets.entity.AirField;
 
 public class JetsApplication {
 	private AirField airField; // cmd+shift+O saves lives
 	Scanner scanner = new Scanner(System.in);
+	private boolean debugMode = true;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -23,21 +23,31 @@ public class JetsApplication {
 	}
 
 	private void launch() {
-		readInFile();
+		List jetsList = readInFile();
+		System.out.println("***************");
 		displayUserMenu();
+		System.out.println("***************");
+		
 
 	}
 
-	private void readInFile() {
-		// You can use this in your code again and again
+	private List readInFile() { //returns an arrayList of strings
+		ArrayList<String> jetsList = new ArrayList<String>();
 		try (BufferedReader bufIn = new BufferedReader(new FileReader("Jets.txt"))) {
 			String line;
 			while ((line = bufIn.readLine()) != null) {
-				System.out.println(line);
+				jetsList.add(line);
+				if(debugMode) {
+					System.out.println(line + " added");
+				}
 			}
 		} catch (IOException e) {
 			System.err.println(e);
 		}
+		if(debugMode) {
+			System.out.println("all lines added");
+		}
+		return jetsList;
 	}
 
 	private void displayUserMenu() {
@@ -62,6 +72,7 @@ public class JetsApplication {
 		//try catch
 		int userInput = 0;
 		try {
+			System.out.println();
 			userInput = scanner.nextInt();
 			if(userInput > 0 || userInput < 10) {
 				return userInput;
@@ -71,6 +82,8 @@ public class JetsApplication {
 			e.printStackTrace();
 		}
 	
-	return userInput;
+		return userInput;
 	}
+	
+	
 }
