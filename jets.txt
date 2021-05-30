@@ -1,3 +1,7 @@
 model,speed,range,price
-hot-air jetty balloon,25,100,5300
-F14,1500,1700,25000
+hot-air balloon with a jet engine,25,100,5300
+F14,1500,1700,250000
+C-130,1200,3000,600000
+UFO,200000,10000000,3000000
+
+

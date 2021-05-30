@@ -30,7 +30,39 @@ public abstract class Jet {
 
 	@Override
 	public String toString() {
-		return "Jet model=" + model + ", speed=" + speed + ", range=" + range + ", price=" + price ;
+		return "Jet model=" + getModel() + ", speed=" + getSpeed() + ", range=" + getRange() + ", price=" + getPrice() ;
+	}
+
+	private String getModel() {
+		return model;
+	}
+
+	private void setModel(String model) {
+		this.model = model;
+	}
+
+	private int getSpeed() {
+		return speed;
+	}
+
+	private void setSpeed(int speed) {
+		this.speed = speed;
+	}
+
+	private int getRange() {
+		return range;
+	}
+
+	private void setRange(int range) {
+		this.range = range;
+	}
+
+	private double getPrice() {
+		return price;
+	}
+
+	private void setPrice(double price) {
+		this.price = price;
 	}
 
 	

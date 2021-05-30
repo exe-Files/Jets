@@ -16,7 +16,6 @@ public class JetsApplication {
 	private boolean debugMode = true;
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		// List<Set<String>> c = new ArrayList<>();
 		JetsApplication jetApp = new JetsApplication();
 		jetApp.launch();
@@ -94,18 +93,105 @@ public class JetsApplication {
 		// TODO Auto-generated method stub
 		switch (userInput) {
 		case 1:
+//			1. List fleet
+			listAllJets();
+			break;
 		case 2:
+//			2. Fly all jets
+			flyAllJets();
+			break;
 		case 3:
+//			3. View fastest jet
+			fastestJet();
+			break;
 		case 4:
+//			4. View jet with longest range
+			jetWithLongestRange();
+			break;
 		case 5:
+//			5. *Load all Cargo Jets*
+			loadAllCargoJets();
+			break;
 		case 6:
+//			6. *Dogfight!*
+			dogFight();
+			break;
 		case 7:
+//			7. Add a jet to Fleet
+			addAJet();
+			break;
 		case 8:
+//			8. Remove a jet from Fleet
+			removeJet();
+			break;
 		case 9:
+//			9. Quit
+			System.out.println("Thank you for your support!");
+			break;
 		default:
-
+			System.out.println("Invalid input, please select something else.");
+			break;
 		}
 
 	}
+
+	// #1
+	private void listAllJets() {
+		System.out.println("Listing all jets...");
+		// TODO Auto-generated method stub
+		
+	}
+	
+	// #2
+	private void flyAllJets() {
+		System.out.println("Flying all jets...");
+		// TODO Auto-generated method stub
+		
+	}
+	// #3
+	private void fastestJet() {
+		System.out.println("Loading the fastest jet...");
+		// TODO Auto-generated method stub
+		
+	}
+	
+	// # 4
+	private void jetWithLongestRange() {
+		System.out.println("Loading Jet with the longest range...");
+		// TODO Auto-generated method stub
+		
+	}
+	
+	// #5
+	private void loadAllCargoJets() {
+		System.out.println("Loading all Cargo Jets...");
+		// TODO Auto-generated method stub
+		
+	}
+	// #6
+	private void dogFight() {
+		System.out.println("DOG FIGHT...");
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	// #7
+	private void addAJet() {
+		System.out.println("Adding a Jet...");
+		// TODO Auto-generated method stub
+		
+	}
+	
+	// #8
+	private void removeJet() {
+		// TODO Auto-generated method stub
+		System.out.println("Removing a Jet...");
+	}
+
+
+
+
+
 
 }
