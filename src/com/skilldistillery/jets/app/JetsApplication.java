@@ -7,28 +7,39 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+// cmd+shift+O saves lives :)
 
 import com.skilldistillery.jets.entity.AirField;
+import com.skilldistillery.jets.entity.CargoJet;
+import com.skilldistillery.jets.entity.Jet;
+import com.skilldistillery.jets.entity.OtherJet;
+import com.skilldistillery.jets.entity.PassengerJet;
 
 public class JetsApplication {
-	private AirField airField; // cmd+shift+O saves lives
 	Scanner scanner = new Scanner(System.in);
-	private boolean debugMode = true;
-
+	private AirField airField; 
+	public boolean debugMode = true;
+	
+	
 	public static void main(String[] args) {
 		// List<Set<String>> c = new ArrayList<>();
 		JetsApplication jetApp = new JetsApplication();
 		jetApp.launch();
 
 	}
-
+	
+	//launches the body of the program
 	private void launch() {
 		List jetsList = readInFile();
+		System.out.println("***************");
+		parseJetFile(jetsList);
+		airField = new AirField(jetsList); 
 		System.out.println("***************");
 		displayUserMenu();
 		System.out.println("***************");
 
 	}
+
 
 	private List readInFile() { // returns an arrayList of strings
 		ArrayList<String> jetsList = new ArrayList<String>();
@@ -49,6 +60,46 @@ public class JetsApplication {
 		return jetsList;
 	}
 
+	private List<Jet> parseJetFile(List jetsList) {
+		// TODO Auto-generated method stub
+		String[] jetStringArray = new String[jetsList.size()];
+		jetStringArray = (String[]) jetsList.toArray(jetStringArray);
+		ArrayList<Jet> parsedJetList = new ArrayList<Jet>();
+		for (String jet : jetStringArray) {
+			String[] jetStats = jet.split(",");
+			Jet jetObj = jetObjCreation(jetStats);
+			parsedJetList.add(jetObj);
+		}
+		return parsedJetList;
+		
+	}
+	
+	private Jet jetObjCreation(String[] jetStats) {
+		Jet jetObj = null;
+		if(jetStats[4].equalsIgnoreCase("Passenger")) {
+			jetObj = new PassengerJet(jetStats[0],Integer.parseInt(jetStats[1]),Integer.parseInt(jetStats[2]),Double.parseDouble(jetStats[3]));
+		
+		}
+		if(jetStats[4].equalsIgnoreCase("Fighter")) {
+			jetObj = new PassengerJet(jetStats[0],Integer.parseInt(jetStats[1]),Integer.parseInt(jetStats[2]),Double.parseDouble(jetStats[3]));
+			
+		}
+		if(jetStats[4].equalsIgnoreCase("Cargo")) {
+			jetObj = new CargoJet(jetStats[0],Integer.parseInt(jetStats[1]),Integer.parseInt(jetStats[2]),Double.parseDouble(jetStats[3]));
+			
+		}
+		else {
+		try {
+			jetObj = new OtherJet(jetStats[0],Integer.parseInt(jetStats[1]),Integer.parseInt(jetStats[2]),Double.parseDouble(jetStats[3]));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			}
+		}
+		return jetObj;
+		
+	}
+
 	private void displayUserMenu() {
 		int userInput = 0;
 		while (userInput != 9) {
@@ -65,6 +116,7 @@ public class JetsApplication {
 			System.out.println("9. Quit");
 			userInput = (userInputValidate());
 			userChoice(userInput);
+			System.out.println();
 		}
 	}
 
@@ -139,6 +191,10 @@ public class JetsApplication {
 	private void listAllJets() {
 		System.out.println("Listing all jets...");
 		// TODO Auto-generated method stub
+		List<Jet> jetList = airField.getJetsList();
+		for( Jet jet:jetList) {
+			System.out.println(jet.toString());
+		}
 		
 	}
 	

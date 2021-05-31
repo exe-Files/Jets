@@ -6,30 +6,31 @@ import java.util.List;
 public class AirField {
 	// Fields
 	private List<Jet> jets;
-	{jets = new ArrayList<Jet>();}
 	private int numJets = 0;
 
 	// Constructors
 	public AirField() {
-		numJets++;
 	}
 
 	public AirField(List<Jet> jets) {
 		this.jets = jets;
-		numJets++;
+		numJets = jets.size();
 	}
 
 	// methods
-	public void addJets(Jet jet) { //should add a jet array to the jets list
+	public void addJets(Jet jet) { 
 		this.jets.add(jet);
 	}
 
 	public List<Jet> getJetsList() {
-		List<Jet> jetsListCopy;
-		jetsListCopy = new ArrayList<Jet>();
-		for (int i = 0; i < jets.size() ; i++) {
-			jetsListCopy.add(jets.get(i)); //makes a copy of each index
-		}
+		List<Jet> jetsListCopy = new ArrayList<Jet>();
+		jetsListCopy.addAll(jets);
+		
+//		for (int i = 0; i < jets.size() ; i++) {
+//			System.out.println(numJets);
+//			System.out.println(jets.get(i));
+//			jetsListCopy.add(jets.get(i)); //makes a copy of each index and adds it to the copied array
+//		}
 		return jetsListCopy;
 	}
 

@@ -22,6 +22,9 @@ public abstract class Jet {
 	}
 
 	
+	public Jet() {
+	}
+
 	//Methods
 	public void fly() {
 		String jetData = this.toString();
