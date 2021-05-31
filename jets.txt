@@ -1,7 +1,7 @@
 hot-air balloon with a jet engine,25,100,5300,passenger
 F14,1500,1700,250000,fighter
 C-130,1200,3000,600000,cargo
-UFO,200000,10000000,3000000,Other
-New York Jets,20,1,1230000000,Other
-F-35,1200,1367,80000000,fighter
-Boeing 737,530,3500,90000000,passenger
+UFO,200000,100000,300000,other
+New York Jets,20,2,1230000,other
+F-35,1200,1367,8000000,fighter
+Boeing 737,530,3500,900000,passenger

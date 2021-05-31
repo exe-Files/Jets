@@ -9,12 +9,10 @@ public abstract class Jet {
 	
 	//Constructors	
 	public Jet(String model) {
-		super();
 		this.model = model;
 	}
 
 	public Jet(String model, int speed, int range, double price) {
-		super();
 		this.model = model;
 		this.speed = speed;
 		this.range = range;
@@ -23,7 +21,7 @@ public abstract class Jet {
 
 	
 	public Jet() {
-	}
+ 	}
 
 	//Methods
 	public void fly() {
@@ -36,7 +34,7 @@ public abstract class Jet {
 		return "Jet model=" + getModel() + ", speed=" + getSpeed() + ", range=" + getRange() + ", price=" + getPrice() ;
 	}
 
-	private String getModel() {
+	public String getModel() {
 		return model;
 	}
 
@@ -44,7 +42,7 @@ public abstract class Jet {
 		this.model = model;
 	}
 
-	private int getSpeed() {
+	public int getSpeed() {
 		return speed;
 	}
 
@@ -52,7 +50,7 @@ public abstract class Jet {
 		this.speed = speed;
 	}
 
-	private int getRange() {
+	public int getRange() {
 		return range;
 	}
 

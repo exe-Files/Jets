@@ -11,37 +11,37 @@ import java.util.Scanner;
 
 import com.skilldistillery.jets.entity.AirField;
 import com.skilldistillery.jets.entity.CargoJet;
+import com.skilldistillery.jets.entity.FighterJet;
 import com.skilldistillery.jets.entity.Jet;
+import com.skilldistillery.jets.entity.JetImpl;
 import com.skilldistillery.jets.entity.OtherJet;
 import com.skilldistillery.jets.entity.PassengerJet;
 
 public class JetsApplication {
 	Scanner scanner = new Scanner(System.in);
-	private AirField airField; 
+	private AirField airField;
 	public boolean debugMode = true;
-	
-	
+
+	// main
 	public static void main(String[] args) {
 		// List<Set<String>> c = new ArrayList<>();
 		JetsApplication jetApp = new JetsApplication();
+		// launches the body of the program
 		jetApp.launch();
 
 	}
-	
-	//launches the body of the program
+
 	private void launch() {
-		List jetsList = readInFile();
+		List<String> jetsStringList = readInFile();
 		System.out.println("***************");
-		parseJetFile(jetsList);
-		airField = new AirField(jetsList); 
+		airField = new AirField(parseJetObjFromString(jetsStringList));
 		System.out.println("***************");
 		displayUserMenu();
 		System.out.println("***************");
 
 	}
 
-
-	private List readInFile() { // returns an arrayList of strings
+	private List<String> readInFile() { // returns an arrayList of Strings
 		ArrayList<String> jetsList = new ArrayList<String>();
 		try (BufferedReader bufIn = new BufferedReader(new FileReader("Jets.txt"))) {
 			String line;
@@ -55,49 +55,52 @@ public class JetsApplication {
 			System.err.println(e);
 		}
 		if (debugMode) {
-			System.out.println("all lines added");
+			System.out.println("\nall lines from file added \n");
 		}
 		return jetsList;
 	}
 
-	private List<Jet> parseJetFile(List jetsList) {
-		// TODO Auto-generated method stub
-		String[] jetStringArray = new String[jetsList.size()];
-		jetStringArray = (String[]) jetsList.toArray(jetStringArray);
-		ArrayList<Jet> parsedJetList = new ArrayList<Jet>();
+	private List<Jet> parseJetObjFromString(List<String> jetsStringList) {
+		String[] jetStringArray = new String[jetsStringList.size()]; // generates a string array the size of the list
+		jetStringArray = (String[]) jetsStringList.toArray(jetStringArray); // adds list to the array
+		ArrayList<Jet> parsedJetList = new ArrayList<Jet>(); //
 		for (String jet : jetStringArray) {
 			String[] jetStats = jet.split(",");
 			Jet jetObj = jetObjCreation(jetStats);
 			parsedJetList.add(jetObj);
 		}
 		return parsedJetList;
-		
+
 	}
-	
+
 	private Jet jetObjCreation(String[] jetStats) {
 		Jet jetObj = null;
-		if(jetStats[4].equalsIgnoreCase("Passenger")) {
-			jetObj = new PassengerJet(jetStats[0],Integer.parseInt(jetStats[1]),Integer.parseInt(jetStats[2]),Double.parseDouble(jetStats[3]));
-		
+		if (jetStats[4].equalsIgnoreCase("Passenger")) {
+			jetObj = new PassengerJet(jetStats[0], Integer.parseInt(jetStats[1]), Integer.parseInt(jetStats[2]),
+					Double.parseDouble(jetStats[3]));
+			return jetObj;
 		}
-		if(jetStats[4].equalsIgnoreCase("Fighter")) {
-			jetObj = new PassengerJet(jetStats[0],Integer.parseInt(jetStats[1]),Integer.parseInt(jetStats[2]),Double.parseDouble(jetStats[3]));
-			
+		if (jetStats[4].equalsIgnoreCase("Fighter")) {
+			jetObj = new FighterJet(jetStats[0], Integer.parseInt(jetStats[1]), Integer.parseInt(jetStats[2]),
+					Double.parseDouble(jetStats[3]));
 		}
-		if(jetStats[4].equalsIgnoreCase("Cargo")) {
-			jetObj = new CargoJet(jetStats[0],Integer.parseInt(jetStats[1]),Integer.parseInt(jetStats[2]),Double.parseDouble(jetStats[3]));
-			
-		}
-		else {
-		try {
-			jetObj = new OtherJet(jetStats[0],Integer.parseInt(jetStats[1]),Integer.parseInt(jetStats[2]),Double.parseDouble(jetStats[3]));
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if (jetStats[4].equalsIgnoreCase("Cargo")) {
+			jetObj = new CargoJet(jetStats[0], Integer.parseInt(jetStats[1]), Integer.parseInt(jetStats[2]),
+					Double.parseDouble(jetStats[3]));
+		} else
+//			if (jetStats[4].equalsIgnoreCase("Other")) {
+//			jetObj = new OtherJet(jetStats[0], Integer.parseInt(jetStats[1]), Integer.parseInt(jetStats[2]),
+//					Double.parseDouble(jetStats[3]));
+//		}
+			try {
+				jetObj = new OtherJet(jetStats[0], Integer.parseInt(jetStats[1]), Integer.parseInt(jetStats[2]),
+						Double.parseDouble(jetStats[3]));
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-		}
 		return jetObj;
-		
+
 	}
 
 	private void displayUserMenu() {
@@ -134,7 +137,7 @@ public class JetsApplication {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				System.out.println("Invalid input, please enter 1 - 9");
-				scanner.nextLine(); //Clears the input buffer
+				scanner.nextLine(); // Clears the input buffer
 			}
 		}
 
@@ -190,64 +193,119 @@ public class JetsApplication {
 	// #1
 	private void listAllJets() {
 		System.out.println("Listing all jets...");
-		// TODO Auto-generated method stub
+		System.out.println(airField.getJetsList());
 		List<Jet> jetList = airField.getJetsList();
-		for( Jet jet:jetList) {
+		for (Jet jet : jetList) {
 			System.out.println(jet.toString());
 		}
-		
+
 	}
-	
+
 	// #2
 	private void flyAllJets() {
 		System.out.println("Flying all jets...");
-		// TODO Auto-generated method stub
-		
+		System.out.println(airField.getJetsList());
+		List<Jet> jetList = airField.getJetsList();
+		for (Jet jet : jetList) {
+			jet.fly();
+		}
+
 	}
+
 	// #3
 	private void fastestJet() {
 		System.out.println("Loading the fastest jet...");
-		// TODO Auto-generated method stub
-		
+		List<Jet> jetList = airField.getJetsList();
+		Jet fastestJet = jetList.get(0);
+		for (int i = 0; i < jetList.size(); i++) {
+			if (fastestJet.getSpeed() < jetList.get(i).getSpeed()) {
+				fastestJet = jetList.get(i);
+			}
+
+		}
+		System.out.println(fastestJet);
+
 	}
-	
+
 	// # 4
 	private void jetWithLongestRange() {
 		System.out.println("Loading Jet with the longest range...");
-		// TODO Auto-generated method stub
-		
+		List<Jet> jetList = airField.getJetsList();
+		Jet longestRangeJet = jetList.get(0);
+		for (int i = 0; i < jetList.size(); i++) {
+			if (longestRangeJet.getRange() < jetList.get(i).getRange()) {
+				longestRangeJet = jetList.get(i);
+			}
+
+		}
+		System.out.println(longestRangeJet);
+
 	}
-	
+
 	// #5
 	private void loadAllCargoJets() {
 		System.out.println("Loading all Cargo Jets...");
-		// TODO Auto-generated method stub
-		
+		List<Jet> jetList = airField.getJetsList();
+		for (int i = 0; i < jetList.size(); i++) {
+			if (jetList.get(i) instanceof CargoJet) {
+				((CargoJet) jetList.get(i)).loadCargo();
+			}
+		}
 	}
+
 	// #6
 	private void dogFight() {
 		System.out.println("DOG FIGHT...");
-		// TODO Auto-generated method stub
-		
+		List<Jet> jetList = airField.getJetsList();
+		for (int i = 0; i < jetList.size(); i++) {
+			if (jetList.get(i) instanceof FighterJet) {
+				((FighterJet) jetList.get(i)).dogFight();
+			}
+		}
+
 	}
-	
-	
+
 	// #7
 	private void addAJet() {
 		System.out.println("Adding a Jet...");
-		// TODO Auto-generated method stub
-		
+		System.out.println("What is the model you would like to add? ");
+		String modelName = scanner.nextLine();
+		JetImpl newJet = new JetImpl(modelName);
+		System.out.println(modelName + " created!");
+		airField.addJet(newJet);
+		System.out.println(modelName + "added to the air field!");
+
 	}
-	
+
 	// #8
 	private void removeJet() {
-		// TODO Auto-generated method stub
 		System.out.println("Removing a Jet...");
+		List<Jet> jetList = airField.getJetsList();
+		int userInput = 0;
+		int counter = 1;
+		boolean noneRemoved = true;
+		for (Jet jet : jetList) {
+			System.out.println(counter + ") " + jet.getModel());
+			counter++;
+		}
+		System.out.println("Please select which jet you would like to remove: ");
+		while (noneRemoved) {
+			try {
+				System.out.println(); //reinitializes userInput per loop
+				userInput = scanner.nextInt();
+				if (userInput > 0 || userInput < jetList.size()) {
+					airField.removeJet(userInput - 1);
+					noneRemoved = false;
+				}
+			} catch (InputMismatchException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Invalid input, please enter 1 - 9");
+				scanner.nextLine(); // Clears the input buffer
+			}
+
+		}
+
 	}
-
-
-
-
-
 
 }

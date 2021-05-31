@@ -10,6 +10,9 @@ public interface CargoCarrier {
 	    return 0;
 	  }
 
-	void loadCargo(int amount);
+	void loadCargo(); 
 	
+	void loadCargo(int amount);
+
+
 }

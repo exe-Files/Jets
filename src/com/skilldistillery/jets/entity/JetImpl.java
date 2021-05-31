@@ -3,8 +3,8 @@ package com.skilldistillery.jets.entity;
 public class JetImpl extends Jet{
 
 
-	public JetImpl(String model, int speed, int range, double price) {
-		super(model, speed, range, price);
+	public JetImpl(String model, int speed, int range, double purchasePrice) {
+		super(model,speed,range,purchasePrice);
 		// TODO Auto-generated constructor stub
 	}
 
