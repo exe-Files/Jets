@@ -33,7 +33,6 @@ public class JetsApplication {
 
 	private void launch() {
 		List<String> jetsStringList = readInFile();
-		System.out.println("***************");
 		airField = new AirField(parseJetObjFromString(jetsStringList));
 		System.out.println("***************");
 		displayUserMenu();
@@ -83,15 +82,14 @@ public class JetsApplication {
 		if (jetStats[4].equalsIgnoreCase("Fighter")) {
 			jetObj = new FighterJet(jetStats[0], Integer.parseInt(jetStats[1]), Integer.parseInt(jetStats[2]),
 					Double.parseDouble(jetStats[3]));
+			return jetObj;
 		}
 		if (jetStats[4].equalsIgnoreCase("Cargo")) {
 			jetObj = new CargoJet(jetStats[0], Integer.parseInt(jetStats[1]), Integer.parseInt(jetStats[2]),
 					Double.parseDouble(jetStats[3]));
-		} else
-//			if (jetStats[4].equalsIgnoreCase("Other")) {
-//			jetObj = new OtherJet(jetStats[0], Integer.parseInt(jetStats[1]), Integer.parseInt(jetStats[2]),
-//					Double.parseDouble(jetStats[3]));
-//		}
+			return jetObj;
+		} else {
+
 			try {
 				jetObj = new OtherJet(jetStats[0], Integer.parseInt(jetStats[1]), Integer.parseInt(jetStats[2]),
 						Double.parseDouble(jetStats[3]));
@@ -99,6 +97,7 @@ public class JetsApplication {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
 		return jetObj;
 
 	}
@@ -117,6 +116,7 @@ public class JetsApplication {
 			System.out.println("7. Add a jet to Fleet");
 			System.out.println("8. Remove a jet from Fleet");
 			System.out.println("9. Quit");
+			System.out.println("***************");
 			userInput = (userInputValidate());
 			userChoice(userInput);
 			System.out.println();
@@ -193,7 +193,6 @@ public class JetsApplication {
 	// #1
 	private void listAllJets() {
 		System.out.println("Listing all jets...");
-		System.out.println(airField.getJetsList());
 		List<Jet> jetList = airField.getJetsList();
 		for (Jet jet : jetList) {
 			System.out.println(jet.toString());
@@ -255,7 +254,7 @@ public class JetsApplication {
 
 	// #6
 	private void dogFight() {
-		System.out.println("DOG FIGHT...");
+		System.out.println("Dog Fight Initiated...");
 		List<Jet> jetList = airField.getJetsList();
 		for (int i = 0; i < jetList.size(); i++) {
 			if (jetList.get(i) instanceof FighterJet) {
@@ -269,11 +268,18 @@ public class JetsApplication {
 	private void addAJet() {
 		System.out.println("Adding a Jet...");
 		System.out.println("What is the model you would like to add? ");
+		scanner.nextLine(); //clears the scanner buffer 
 		String modelName = scanner.nextLine();
-		JetImpl newJet = new JetImpl(modelName);
+		System.out.println("What is the speed of the jet?");
+		int speed = scanner.nextInt();
+		System.out.println("What is the max range (in miles) that the jet can travel without stopping?");
+		int range = scanner.nextInt();
+		System.out.println("What is the price?");
+		double price = scanner.nextDouble();
+		JetImpl newJet = new JetImpl(modelName, speed, range, price);
 		System.out.println(modelName + " created!");
 		airField.addJet(newJet);
-		System.out.println(modelName + "added to the air field!");
+		System.out.println(modelName + " added to the air field!");
 
 	}
 
@@ -300,10 +306,10 @@ public class JetsApplication {
 			} catch (InputMismatchException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				System.out.println("Invalid input, please enter 1 - 9");
+				System.out.println("Invalid input, try again");
 				scanner.nextLine(); // Clears the input buffer
 			}
-
+			System.out.println("Successfully removed!");
 		}
 
 	}

@@ -13,7 +13,7 @@ public class CargoJet extends Jet implements CargoCarrier {
 	@Override
 	public void loadCargo() {
 		// TODO Auto-generated method stub
-		System.out.println("Loading up the cargo before flight!");
+		System.out.println(this.getModel() + " is loading up the cargo before flight!");
 
 	}
 

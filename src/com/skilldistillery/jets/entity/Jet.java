@@ -5,9 +5,13 @@ public abstract class Jet {
 	private String model;
 	private int speed;
 	private int range;
+	private double time;
 	private double price;
 	
 	//Constructors	
+	public Jet() {
+	}
+
 	public Jet(String model) {
 		this.model = model;
 	}
@@ -17,25 +21,30 @@ public abstract class Jet {
 		this.speed = speed;
 		this.range = range;
 		this.price = price;
+		this.setTime((double)range / (double)speed);
 	}
 
-	
-	public Jet() {
- 	}
-
 	//Methods
+	public String toString() {
+		return getModel().substring(0,1).toUpperCase() 
+				+ getModel().substring(1) + ", Speed = " 
+				+ getSpeed() + "mph, Range = " 
+				+ getRange() + "mi, Price = $" 
+				+ getPrice() ;
+	}
 	public void fly() {
-		String jetData = this.toString();
+		System.out.println(this.getModel() + " taking off...");
+		String jetData = "Speed = " + this.getSpeed() 
+						+"mph, Range = "+ getRange() 
+						+"mi, Time = " + getTime()
+						+"hrs";
 		System.out.println(jetData);
 	}
 
-	@Override
-	public String toString() {
-		return "Jet model=" + getModel() + ", speed=" + getSpeed() + ", range=" + getRange() + ", price=" + getPrice() ;
-	}
-
+	
+	//Getters & Setters
 	public String getModel() {
-		return model;
+		return model; 
 	}
 
 	private void setModel(String model) {
@@ -64,6 +73,14 @@ public abstract class Jet {
 
 	private void setPrice(double price) {
 		this.price = price;
+	}
+
+	public double getTime() {
+		return time;
+	}
+
+	public void setTime(double time) {
+		this.time = time;
 	}
 
 	
